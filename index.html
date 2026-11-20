@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portafolio Profesional | Ana Carolina Pérez Jaramillo</title>
+
+<!-- Librería para generar PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #ffffff;
+    color: #292536;
+    line-height: 1.7;
+}
+
+/* ENCABEZADO */
+
+header {
+    background: #ffffff;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+header h2 {
+    color: #7042a5;
+    font-size: 22px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    color: #292536;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #895ac0;
+}
+
+/* BOTÓN PDF */
+
+.pdf-button {
+    background: #7042a5;
+    color: white;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pdf-button:hover {
+    background: #4d2b78;
+    transform: translateY(-2px);
+}
+
+/* PRESENTACIÓN */
+
+.hero {
+    min-height: 450px;
+    padding: 75px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background: #ffffff;
+    border-bottom: 1px solid #eee8f5;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 15px;
+    color: #292536;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    color: #7042a5;
+}
+
+.hero h3 {
+    font-size: 19px;
+    color: #8052ad;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+/* FOTOGRAFÍA */
+
+.photo-container {
+    text-align: center;
+    min-width: 220px;
+}
+
+.profile-photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid #eee4fa;
+    box-shadow: 0 5px 20px rgba(112,66,165,0.18);
+    background: #f5f0fa;
+}
+
+.upload-label {
+    display: inline-block;
+    margin-top: 15px;
+    background: #eee4fa;
+    color: #7042a5;
+    padding: 9px 17px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.upload-label:hover {
+    background: #dfcef5;
+}
+
+#photoUpload {
+    display: none;
+}
+
+/* BOTONES */
+
+.btn {
+    display: inline-block;
+    background: #7042a5;
+    color: white;
+    padding: 11px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #4d2b78;
+}
+
+/* SECCIONES */
+
+section {
+    padding: 60px 10%;
+    background: #ffffff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 29px;
+    color: #7042a5;
+    margin-bottom: 35px;
+}
+
+/* SOBRE MÍ */
+
+.about {
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+}
+
+.about p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.highlight {
+    color: #7042a5;
+    font-weight: bold;
+}
+
+/* TARJETAS */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border-top: 4px solid #9b72d0;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #7042a5;
+    margin-bottom: 12px;
+}
+
+.icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* FORMACIÓN */
+
+.education-box {
+    max-width: 750px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border-left: 5px solid #895ac0;
+}
+
+.education-box h3 {
+    color: #7042a5;
+    margin-bottom: 10px;
+}
+
+/* CONTACTO */
+
+.contact {
+    text-align: center;
+    border-top: 1px solid #eee8f5;
+}
+
+.contact p {
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.contact a:not(.btn) {
+    color: #7042a5;
+    text-decoration: none;
+}
+
+/* PIE DE PÁGINA */
+
+footer {
+    background: #ffffff;
+    color: #7042a5;
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    border-top: 1px solid #eee8f5;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 50px 7%;
+    }
+
+    section {
+        padding: 45px 7%;
+    }
+
+}
+
+@media print {
+
+    .upload-label,
+    .pdf-button {
+        display: none !important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ENCABEZADO -->
+
+<header>
+
+    <h2>AC | PORTAFOLIO</h2>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#formacion">Formación</a>
+        <a href="#contacto">Contacto</a>
+
+        <button class="pdf-button"
+                onclick="descargarPDF()">
+            VER PORTAFOLIO ↓
+        </button>
+    </nav>
+
+</header>
+
+<!-- CONTENIDO QUE SE CONVERTIRÁ EN PDF -->
+
+<main id="contenido-portafolio">
+
+    <!-- PRESENTACIÓN -->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <h1>
+                Hola, soy
+                <span>Ana Carolina Pérez Jaramillo</span>
+            </h1>
+
+            <h3>
+                Estudiante de Administración Tecnológica |
+                Profesional de Gestión Humana
+            </h3>
+
+            <p>
+                Profesional con 13 años de experiencia liderando
+                y coordinando áreas de Gestión Humana, comprometida
+                con el desarrollo del talento humano, el liderazgo
+                y el crecimiento organizacional.
+            </p>
+
+            <a href="#contacto" class="btn">
+                Conoce mi perfil
+            </a>
+
+        </div>
+
+        <!-- FOTOGRAFÍA DE PRESENTACIÓN -->
+
+        <div class="photo-container">
+
+            <img
+                id="profileImage"
+                class="profile-photo"
+                src="https://placehold.co/400x400/eee4fa/7042a5?text=Mi+Foto"
+                alt="Fotografía de Ana Carolina Pérez Jaramillo"
+            >
+
+            <br>
+
+            <label for="photoUpload" class="upload-label">
+                📷 Cargar fotografía
+            </label>
+
+            <input
+                type="file"
+                id="photoUpload"
+                accept="image/png, image/jpeg, image/webp"
+            >
+
+        </div>
+
+    </section>
+
+    <!-- SOBRE MÍ -->
+
+    <section id="sobre-mi">
+
+        <h2 class="section-title">Sobre mí</h2>
+
+        <div class="about">
+
+            <p>
+                Soy una persona comprometida, responsable y
+                orientada al logro de resultados. Mi trayectoria
+                profesional se ha enfocado en la gestión estratégica
+                del talento humano, la coordinación de equipos
+                de trabajo y el fortalecimiento de los procesos
+                organizacionales.
+            </p>
+
+            <p>
+                Soy <span class="highlight">
+                estudiante de tercer semestre de la Institución
+                Universitaria ITM</span>, con formación integral,
+                con cualidades éticas y de autonomía, con capacidad
+                para planear, organizar, dirigir, controlar y evaluar
+                los procesos de gestión del conocimiento.
+            </p>
+
+            <p>
+                Mi propósito es integrar la experiencia profesional
+                con los conocimientos académicos para contribuir
+                a la transformación, innovación y competitividad
+                de las organizaciones.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- EXPERIENCIA -->
+
+    <section id="experiencia">
+
+        <h2 class="section-title">
+            Experiencia profesional
+        </h2>
+
+        <div class="card-container">
+
+            <div class="card">
+                <div class="icon">👥</div>
+                <h3>Gestión Humana</h3>
+                <p>
+                    13 años de experiencia liderando y coordinando
+                    áreas de Gestión Humana, orientadas al desarrollo
+                    del talento y al bienestar organizacional.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📋</div>
+                <h3>Gestión de procesos</h3>
+                <p>
+                    Coordinación y seguimiento de procesos
+                    administrativos y laborales, promoviendo
+                    el cumplimiento de los procedimientos internos.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🤝</div>
+                <h3>Liderazgo de equipos</h3>
+                <p>
+                    Acompañamiento y coordinación de equipos
+                    de trabajo, promoviendo la comunicación,
+                    el compromiso y el cumplimiento de objetivos.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HABILIDADES -->
+
+    <section id="habilidades">
+
+        <h2 class="section-title">
+            Habilidades y competencias
+        </h2>
+
+        <div class="card-container">
+
+            <div class="card">
+                <div class="icon">⭐</div>
+                <h3>Liderazgo</h3>
+                <p>
+                    Capacidad para orientar, motivar y dirigir
+                    equipos hacia el cumplimiento de metas.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🤝</div>
+                <h3>Trabajo en equipo</h3>
+                <p>
+                    Facilidad para colaborar, generar confianza
+                    y construir relaciones laborales positivas.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">⚖️</div>
+                <h3>Legislación laboral</h3>
+                <p>
+                    Conocimiento de la normatividad laboral
+                    colombiana y su aplicación en las organizaciones.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📑</div>
+                <h3>Procesos disciplinarios</h3>
+                <p>
+                    Conocimiento de procedimientos disciplinarios
+                    y acompañamiento de situaciones laborales.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FORMACIÓN -->
+
+    <section id="formacion">
+
+        <h2 class="section-title">
+            Formación académica
+        </h2>
+
+        <div class="education-box">
+
+            <h3>Administración Tecnológica</h3>
+
+            <p>
+                <strong>Institución:</strong>
+                Institución Universitaria ITM.
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                Actualmente en formación.
+            </p>
+
+            <p>
+                <strong>Semestre:</strong> Tercero.
+            </p>
+
+            <br>
+
+            <p>
+                Formación orientada a integrar la administración,
+                la tecnología y la gestión del conocimiento para
+                aportar soluciones innovadoras y fortalecer
+                los procesos organizacionales.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACTO -->
+
+    <section class="contact" id="contacto">
+
+        <h2 class="section-title">
+            ¡Conectemos!
+        </h2>
+
+        <p>
+            Estoy abierta a nuevas oportunidades profesionales,
+            proyectos y espacios de aprendizaje.
+        </p>
+
+        <p>
+            📧 Correo:
+            <a href="mailto:caroperez0621@gmail.com">
+                caroperez0621@gmail.com
+            </a>
+        </p>
+
+        <p>
+            📱 Teléfono:
+            <a href="tel:+573015673766">
+                301 567 3766
+            </a>
+        </p>
+
+        <br>
+
+        <a class="btn"
+           href="mailto:caroperez0621@gmail.com">
+            Enviar un correo
+        </a>
+
+    </section>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+
+<footer>
+
+    <p>
+        © 2026 Ana Carolina Pérez Jaramillo.
+        Portafolio profesional.
+    </p>
+
+    <p>
+        Administración Tecnológica | ITM
+    </p>
+
+</footer>
+
+<!-- FUNCIONES JAVASCRIPT -->
+
+<script>
+
+// CARGAR FOTOGRAFÍA DESDE EL COMPUTADOR
+
+document.getElementById("photoUpload")
+.addEventListener("change", function(event) {
+
+    const archivo = event.target.files[0];
+
+    if (archivo) {
+
+        if (!archivo.type.startsWith("image/")) {
+            alert("Por favor selecciona una imagen válida.");
+            return;
+        }
+
+        const lector = new FileReader();
+
+        lector.onload = function(e) {
+
+            document.getElementById("profileImage").src =
+                e.target.result;
+
+        };
+
+        lector.readAsDataURL(archivo);
+
+    }
+
+});
+
+
+// GENERAR Y DESCARGAR PORTAFOLIO EN PDF
+
+function descargarPDF() {
+
+    if (typeof html2pdf === "undefined") {
+        alert("No se pudo cargar el generador de PDF. Verifica tu conexión a internet e inténtalo nuevamente.");
+        return;
+    }
+
+    const contenido = document.getElementById(
+        "contenido-portafolio"
+    );
+
+    const opciones = {
+
+        margin: [10, 10, 10, 10],
+
+        filename: "Portafolio_Ana_Carolina_Perez_Jaramillo.pdf",
+
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff"
+        },
+
+        jsPDF: {
+            unit: "mm",
+            format: "a4",
+            orientation: "portrait"
+        },
+
+        pagebreak: {
+            mode: ["css", "legacy"]
+        }
+
+    };
+
+    html2pdf()
+        .set(opciones)
+        .from(contenido)
+        .save();
+
+}
+
+</script>
+
+</body>
+</html>
